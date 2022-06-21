@@ -1,0 +1,5 @@
+/* RETAILER GET */
+export const GET_RETAILER = "GET_USER"
+export const GET_RETAILER_SUCCESS = "GET_USER_SUCCESS"
+export const GET_RETAILER_FAIL = "GET_USER_FAIL"
+
