@@ -145,7 +145,7 @@ export const getUser =()=>get(`${baseUrl}/users/userList?sort=-1&pageNumber=1&re
 export const addUser =(users)=>post(`${baseUrl}/users/add`,users);
 
 //get retailer user
-export const getRetailer =()=>get(`${baseUrl}/retailers/list?sort=-1&pageNumber=1&recordsLimit=10`);
+export const getRetailer =(url)=>get(`${baseUrl}/retailers/list?sort=-1&pageNumber=1&recordsLimit=50`);
 
 // add order
 export const addNewOrder = order => post(url.ADD_NEW_ORDER, order);

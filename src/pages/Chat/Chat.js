@@ -2,14 +2,13 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { withRouter, Link } from "react-router-dom"
-import { isEmpty, set } from "lodash"
+import { isEmpty} from "lodash"
 import BootstrapTable from "react-bootstrap-table-next"
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit"
 import { Button, Card, CardBody, Col, Row, Badge } from "reactstrap"
 import { getOrders as onGetOrders } from "store/actions"
 import { getRetailer } from "store/actions"
 import EcommerceOrdersModal from "../Ecommerce/EcommerceOrders/EcommerceOrdersModal"
-import _ from 'lodash'
 
 //paginate
 import ReactPaginate from "react-paginate"
@@ -23,57 +22,35 @@ const Chat = props => {
   const [select, setSelect] = useState("")
   const dispatch = useDispatch()
   const orders = useSelector(state => state?.RetailerList)
-  console.log("data found", orders?.retailer?.user)
   useEffect(() => {
     dispatch(getRetailer())
     setItems(orders)
   }, [dispatch]);
   const [q, setQ] = useState("")
-  const DataFilterArr = [];
-  const dataOrder = orders?.users?.user
+  // const DataFilterArr = [];
+  const dataOrder =  orders?.retailer.user
+// console.log("data orders",dataOrder)
 
-function DataSubmit(){
-  // dataOrder?.filter((ele) => {
-  //   if (q && select) {
-  //     if (ele.firstname == q && ele.status == select) {
-  //       DataFilterArr.push(ele)
-  //       console.log(ele,"ll")
-  //     }
-  //   }
-  //   if(q || select) {
-  //     if (ele.status == select || ele.firstname == q) {
-  //       DataFilterArr.push(ele)
-  //     }
-  //   }
-  // })
-  dataOrder?.filter((ele) => {
-    if (q && select) {
-      if (q == ele.firstname && select == ele.status) { 
-        DataFilterArr.push(ele);
-        console.log(DataFilterArr);
-    }
-  //   if (q == ele.firstname || select == ele.status) { 
-  //     DataFilterArr.push(ele);
-  //     console.log(DataFilterArr);
-  }
-    // if(select)
-    // {
-    //   if (ele.status == select  ) {
-    //     DataFilterArr.push(ele)
-    //     console.log(DataFilterArr,"ll")
-    // }
-    // }
-  
+// dataOrder.map((ele)=>{
+//   console.log("data map values",ele)
+// })
+
+// function DataSubmit(){
+//   dataOrder?.filter((ele) => {
+//     if (q && select) {
+//       if (q == ele.firstname && select == ele.status) { 
+//         DataFilterArr.push(ele);
+//         console.log(DataFilterArr);
+//     }
+//   }
+
   // }
-  }
-  )
-}
-
-
-function Onclick(e){
-DataSubmit();
-setDatafilter(DataFilterArr);
-}
+  // )
+// }
+// function Onclick(e){
+// DataSubmit();
+// setDatafilter(DataFilterArr);
+// }
 
 function handleSelectChange(e){
   setSelect(e.target.value)
@@ -82,11 +59,11 @@ function handleSelectChange(e){
   }
 }
 
-  function handleChange(e) {
+function handleChange(e) {
     
     setQ(e.target.value)
   }
-  console.log(DataFilterArr, "arr")
+  // console.log(DataFilterArr, "arr")
   const [orderList, setOrderList] = useState([])
   const [isEdit, setIsEdit] = useState(false)
 
@@ -109,14 +86,6 @@ function handleSelectChange(e){
 
   const [items, setItems] = useState([])
 
-  // const handledata = (e) => {
-  //   console.log(e.target.value)
-  //   setQ(e.target.value)
-  // }
-  // const filterdata = () => {
-  //   console.log(orders)
-  // }
-
   console.log(q, "fff")
   return (
     <React.Fragment>
@@ -124,7 +93,7 @@ function handleSelectChange(e){
         <CardBody>
 
 <div className="d-flex mt-3">
-          <div className="mb-4 mt-5 ml-5 fs-3 h4 card-title">User</div>
+          <div className="mb-4 mt-5 ml-5 fs-3 h4 card-title">Retailer</div>
           <div>
             <Link to="/user/add"><button className="mx-5 my-5 px-3 py-1 h4 card-title btn-primary text-light ">Add User</button></Link>
           </div>
@@ -144,9 +113,9 @@ function handleSelectChange(e){
                   <option value="0">Not Active</option>
                 </select>
               </div>
-              <div className="mx-3">
+              {/* <div className="mx-3">
                 <button type="button" className="btn-primary mt-3 px-4 py-2 w-100" onClick={Onclick}>Filter</button>
-                </div>
+                </div> */}
             </div>
 
           </form>
@@ -154,37 +123,24 @@ function handleSelectChange(e){
           <table className="table">
             <thead>
               <tr>
-                <th scope="col">First Name </th>
-                <th scope="col">Last Name  </th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Active</th>
+                <th scope="col">Retailers </th>
+                <th scope="col">Referral Id </th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
               </tr>
             </thead>
             <tbody>
-              {Datafilter.length > 0 ? (
-                Datafilter?.map((item, index) => {
-                  return (<tr key={index} >
-                    <td>{item.firstname}</td>
-                    <td>{item.lastname}</td>
-                    <td>{item.email}</td>
-                    <td>{item.phone_number}</td>
-                    {
-                      (item.status == 1) ? <Badge className="bg-success w-50">Active</Badge> : <Badge className="bg-danger w-50">Not Active</Badge>
-                    }
-                  </tr>)
-                })
-              ) : orders?.users?.user?.map((item, index) => {
+           {dataOrder?.map((item, index) => {
                 return (<tr key={index} >
-                  <td>{item.firstname}</td>
-                  <td>{item.lastname}</td>
-                  <td>{item.email}</td>
-                  <td>{item.phone_number}</td>
+                  <td>{item.name}</td>
+                  <td>{item.referral_id}</td>
+                  <td>{item.updatedAt}</td>
                   {
-                    (item.status == 1) ? <Badge className="bg-success w-50">Active</Badge> : <Badge className="bg-danger w-50">Not Active</Badge>
+                    (item.active == 1) ? <Badge className="bg-success w-50">Active</Badge> : <Badge className="bg-danger w-50">Not Active</Badge>
                   }
                 </tr>)
-              })}
+            })
+              }
             </tbody>
           </table>
 

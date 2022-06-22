@@ -4,7 +4,7 @@ import {
     GET_RETAILER_FAIL
   } from "./actionTypes"
   
-  export const getretailer = () => ({
+  export const getRetailer = () => ({
     type: GET_RETAILER,
   })
   
