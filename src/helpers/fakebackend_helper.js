@@ -147,6 +147,11 @@ export const addUser =(users)=>post(`${baseUrl}/users/add`,users);
 //get retailer user
 export const getRetailer =(url)=>get(`${baseUrl}/retailers/list?sort=-1&pageNumber=1&recordsLimit=50`);
 
+// get user notification
+export const getusersNotification =()=>get(`${baseUrl}/users/listNotification`);
+
+// update notification
+export const getUpdateNotification = ()=>post(`${baseUrl}/users/updateNotification`)
 // add order
 export const addNewOrder = order => post(url.ADD_NEW_ORDER, order);
 

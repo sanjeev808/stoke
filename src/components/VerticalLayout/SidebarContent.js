@@ -142,14 +142,12 @@ const SidebarContent = props => {
               <Link to="/apps-filemanager" className="">
                 <i className="bx bx-bell"></i>
                 <span className="badge rounded-pill bg-success float-end">
-                  {/* {props.t("Notifications")} */}
                 </span>
                 <span>{props.t("Notifications")}</span>
               </Link>
             </li>
-
             <li>
-              <Link to="/#" className="has-arrow">
+              <Link to="/support" className="has-arrow">
                 <i className="bx bx-store"></i>
                 <span>{props.t("Support")}</span>
               </Link>

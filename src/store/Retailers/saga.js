@@ -15,10 +15,10 @@ import {
 } from "helpers/fakebackend_helper";
 
 
-function* fetchOrders() {
- 
+function* fetchOrders({payload:data}) {
+ console.log(data,"data")
   try {
-    const response = yield call(getRetailer);
+    const response = yield call(getRetailer,data);
     console.log("get reponse", response)
     yield put(getRetailerSuccess(response));
   } catch (error) {

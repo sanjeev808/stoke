@@ -51,6 +51,10 @@ import addUserList from './addUserList/reducer'
 // retailer user
 import RetailerList from './Retailers/reducer'
 
+
+// retailer user
+import UserNotificationlist from './Notification/reducer'
+
 const rootReducer = combineReducers({
   // public
   Layout,
@@ -71,7 +75,9 @@ const rootReducer = combineReducers({
   DashboardSaas,
   Userlist,
   addUserList,
-  RetailerList
+  RetailerList,
+  UserNotificationlist
+
 })
 
 export default rootReducer

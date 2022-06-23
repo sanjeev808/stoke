@@ -206,7 +206,7 @@ const dispatch = useDispatch();
       <div>
         <section className="main-dashboard position-relative">
           <div className="dashboard-right" style={{ marginTop: 74, marginLeft: 15 }}>
-            <h2 className="dashboard-heading">Add User Details</h2>
+            <h2 className="dashboard-heading ">Add User Details</h2>
             <Row className="active-userbox mt-4 ms-1">
               {/* <Col xs lg="2" md="12">
                 <Form.Group className="mb-1">

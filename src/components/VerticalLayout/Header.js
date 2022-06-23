@@ -108,18 +108,18 @@ const Header = props => {
               <i className="fa fa-fw fa-bars" />
             </button>
 
-            <form className="app-search d-none d-lg-block">
-              <div className="position-relative">
+            {/* <form className="app-search d-none d-lg-block"> */}
+              {/* <div className="position-relative">
                 <input
                   type="text"
                   className="form-control"
                   placeholder={props.t("Search") + "..."}
                 />
                 <span className="bx bx-search-alt" />
-              </div>
-            </form>
+              </div> */}
+            {/* </form> */}
 
-            <Dropdown
+            {/* <Dropdown
               className="dropdown-mega d-none d-lg-block ms-2"
               isOpen={megaMenu}
               toggle={() => {
@@ -267,11 +267,11 @@ const Header = props => {
                   </Col>
                 </Row>
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
           </div>
           <div className="d-flex">
             <div className="dropdown d-inline-block d-lg-none ms-2">
-              <button
+              {/* <button
                 onClick={() => {
                   setsearch(!search);
                 }}
@@ -280,15 +280,15 @@ const Header = props => {
                 id="page-header-search-dropdown"
               >
                 <i className="mdi mdi-magnify" />
-              </button>
-              <div
+              </button> */}
+              {/* <div
                 className={
                   search
                     ? "dropdown-menu dropdown-menu-lg dropdown-menu-end p-0 show"
                     : "dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                 }
                 aria-labelledby="page-header-search-dropdown"
-              >
+              > */}
                 <form className="p-3">
                   <div className="form-group m-0">
                     <div className="input-group">
@@ -307,11 +307,11 @@ const Header = props => {
                   </div>
                 </form>
               </div>
-            </div>
+            {/* </div> */}
 
-            <LanguageDropdown />
+            {/* <LanguageDropdown /> */}
 
-            <Dropdown
+            {/* <Dropdown
               className="d-none d-lg-inline-block ms-1"
               isOpen={socialDrp}
               toggle={() => {
@@ -323,8 +323,8 @@ const Header = props => {
                 tag="button"
               >
                 <i className="bx bx-customize" />
-              </DropdownToggle>
-              <DropdownMenu className="dropdown-menu-lg dropdown-menu-end">
+              </DropdownToggle> */}
+              {/* <DropdownMenu className="dropdown-menu-lg dropdown-menu-end">
                 <div className="px-lg-2">
                   <Row className="no-gutters">
                     <Col>
@@ -347,7 +347,7 @@ const Header = props => {
                     </Col>
                   </Row>
 
-                  <Row className="no-gutters">
+                  {/* <Row className="no-gutters">
                     <Col>
                       <Link className="dropdown-icon-item" to="#">
                         <img src={dropbox} alt="dropbox" />
@@ -366,12 +366,12 @@ const Header = props => {
                         <span>Slack</span>
                       </Link>
                     </Col>
-                  </Row>
+                  </Row> 
                 </div>
-              </DropdownMenu>
-            </Dropdown>
+              </DropdownMenu> */}
+            {/* </Dropdown> */}
 
-            <div className="dropdown d-none d-lg-inline-block ms-1">
+            {/* <div className="dropdown d-none d-lg-inline-block ms-1">
               <button
                 type="button"
                 onClick={() => {
@@ -382,9 +382,9 @@ const Header = props => {
               >
                 <i className="bx bx-fullscreen" />
               </button>
-            </div>
+            </div> */}
 
-            <NotificationDropdown />
+            {/* <NotificationDropdown /> */}
             <ProfileMenu />
 
             <div

@@ -20,6 +20,8 @@ import dashboardSaasSaga from "./dashboard-saas/saga";
 import userSaga from "./userlist/saga"
 import addUserSaga from "./addUserList/saga"
 import retaileruserSaga from './Retailers/saga'
+import userNotificationSaga from './Notification/saga'
+
 export default function* rootSaga() {
   yield all([
     //public
@@ -41,7 +43,7 @@ export default function* rootSaga() {
     fork(dashboardSaasSaga),
     fork(userSaga),
     fork(addUserSaga),
-    fork(retaileruserSaga)
-
+    fork(retaileruserSaga),
+    fork(userNotificationSaga)
   ])
 }

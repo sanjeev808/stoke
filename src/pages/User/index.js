@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from "react"
+import MetaTags from 'react-meta-tags';
 import PropTypes from "prop-types"
 import { withRouter, Link } from "react-router-dom"
 import { isEmpty, set } from "lodash"
@@ -10,6 +11,7 @@ import { getOrders as onGetOrders } from "store/actions"
 import { getusers } from "store/actions"
 import EcommerceOrdersModal from "../Ecommerce/EcommerceOrders/EcommerceOrdersModal"
 import _ from 'lodash'
+import Pagination from "./Pagination";
 
 //paginate
 import ReactPaginate from "react-paginate"
@@ -21,6 +23,7 @@ const user = props => {
 
   const [Datafilter, setDatafilter] = useState("");
   const [select, setSelect] = useState("")
+  const [user, setUser] = useState
   const dispatch = useDispatch()
   const orders = useSelector(state => state?.Userlist)
   console.log("data", orders?.users?.user, "oo")
@@ -117,16 +120,29 @@ function handleSelectChange(e){
   //   console.log(orders)
   // }
 
+  const [showPerPage, setShowPerPage] = useState(4);
+  const [pagination, setPagination] = useState({
+    start: 0,
+    end: showPerPage,
+  });
+
+  const onPaginationChange = (start, end) => {
+    setPagination({ start: start, end: end });
+  };
+
   console.log(q, "fff")
   return (
     <React.Fragment>
+        <MetaTags>
+            <title>User | Skote - React Admin & Dashboard Template</title>
+          </MetaTags>
       <Card>
         <CardBody>
 
 <div className="d-flex mt-3">
           <div className="mb-4 mt-5 ml-5 fs-3 h4 card-title">User</div>
           <div>
-            <Link to="/user/add"><button className="mx-5 my-5 px-3 py-1 h4 card-title btn-primary text-light ">Add User</button></Link>
+            <Link to="/user/add"><button className="mx-5 my-5 px-3 py-1 h4 card-title btn-primary text-light btn btn-primary  btn-sm ">Add User</button></Link>
           </div>
           </div>
           <form action="" >
@@ -145,7 +161,7 @@ function handleSelectChange(e){
                 </select>
               </div>
               <div className="mx-3">
-                <button type="button" className="btn-primary mt-3 px-4 py-2 w-100" onClick={Onclick}>Filter</button>
+                <button type="button" className="btn-primary mt-3 px-4 py-2 w-100 btn btn-primary  btn-sm" onClick={Onclick}>Filter</button>
                 </div>
             </div>
 
@@ -174,7 +190,7 @@ function handleSelectChange(e){
                     }
                   </tr>)
                 })
-              ) : orders?.users?.user?.map((item, index) => {
+              ) : orders?.users?.user?.slice(pagination.start, pagination.end).map((item, index) => {
                 return (<tr key={index} >
                   <td>{item.firstname}</td>
                   <td>{item.lastname}</td>
@@ -188,6 +204,11 @@ function handleSelectChange(e){
             </tbody>
           </table>
 
+          <Pagination 
+          showPerPage={showPerPage}
+          onPaginationChange={onPaginationChange}
+          total={orders?.users?.user?.length}
+        />
 
           {/* <ReactPaginate
            previousLabel= {"previous"}

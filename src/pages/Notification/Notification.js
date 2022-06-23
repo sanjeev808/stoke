@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from "react"
-import MetaTags from 'react-meta-tags';
 import PropTypes from "prop-types"
 import { withRouter, Link } from "react-router-dom"
 import { isEmpty} from "lodash"
@@ -90,17 +89,14 @@ function handleChange(e) {
   console.log(q, "fff")
   return (
     <React.Fragment>
-          <MetaTags>
-            <title>Retailer | Skote - React Admin & Dashboard Template</title>
-          </MetaTags>
       <Card>
         <CardBody>
 
 <div className="d-flex mt-3">
           <div className="mb-4 mt-5 ml-5 fs-3 h4 card-title">Retailer</div>
-          {/* <div>
+          <div>
             <Link to="/user/add"><button className="mx-5 my-5 px-3 py-1 h4 card-title btn-primary text-light ">Add User</button></Link>
-          </div> */}
+          </div>
           </div>
           <form action="" >
             <div className="d-flex align-items-center">
