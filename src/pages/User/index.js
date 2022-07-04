@@ -1,232 +1,375 @@
 
 import React, { useEffect, useState } from "react"
-import MetaTags from 'react-meta-tags';
 import PropTypes from "prop-types"
 import { withRouter, Link } from "react-router-dom"
 import { isEmpty, set } from "lodash"
 import BootstrapTable from "react-bootstrap-table-next"
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit"
-import { Button, Card, CardBody, Col, Row, Badge } from "reactstrap"
+// import { Button, Card, CardBody, Col, Row, Badge } from "reactstrap"
 import { getOrders as onGetOrders } from "store/actions"
 import { getusers } from "store/actions"
 import EcommerceOrdersModal from "../Ecommerce/EcommerceOrders/EcommerceOrdersModal"
-import _ from 'lodash'
-import Pagination from "./Pagination";
+import { useHistory } from "react-router-dom";
+import { FaRegEdit } from "react-icons/fa";
+import { FiUserPlus } from "react-icons/fi";
+import { AiOutlineSearch } from "react-icons/ai";
+import paginationFactory from "react-bootstrap-table2-paginator";
+
+
+
+import {
+  Form,
+  Button,
+  Dropdown,
+  Accordion,
+  Row,
+  Col,
+  Table,
+  Pagination,
+  Modal,
+} from "react-bootstrap";
+import { DebounceInput } from "react-debounce-input";
+
+
 
 //paginate
 import ReactPaginate from "react-paginate"
 //redux
 import { useSelector, useDispatch } from "react-redux"
-import userProfile from "pages/Authentication/user-profile"
 
 const user = props => {
 
-  const [Datafilter, setDatafilter] = useState("");
-  const [select, setSelect] = useState("")
-  const [user, setUser] = useState
-  const dispatch = useDispatch()
-  const orders = useSelector(state => state?.Userlist)
-  console.log("data", orders?.users?.user, "oo")
-  useEffect(() => {
-    dispatch(getusers())
-    setItems(orders)
-  }, [dispatch]);
-  const [q, setQ] = useState("")
+  const [userName, setUserName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userphone, setUserPhone] = useState("");
+  const [userImage, setUserImage] = useState("");
+  const [userID, setUserID] = useState("");
+  const [pageNumber, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [searchUsers, setSearchUsers] = useState("");
+  const [picture, setPicture] = useState(null);
+  const [imgData, setImgData] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(true);
+  const [selectedOption, SetSelectedOption] = useState("");
+  const [selectedStatusOption, SetSelectedStatusOption] = useState("");
+  const [selectedTypeOption, SetSelectedTypeOption] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [formState, setFormState] = useState({ errors: {}, });
+  const [updateUserModal, setupdateUserModal] = useState(false);
+  const [userSearch, setUserSearch] = useState("")
+
+
+  const history = useHistory()
+  const dispatch = useDispatch();
+
+  const auth = useSelector(state => state.Login?.userDetails);
+  const authToken = auth?.data?.token
+  const userinfo = useSelector(state => state?.Userlist)
   const DataFilterArr = [];
-  const dataOrder = orders?.users?.user
-
-function DataSubmit(){
-  // dataOrder?.filter((ele) => {
-  //   if (q && select) {
-  //     if (ele.firstname == q && ele.status == select) {
-  //       DataFilterArr.push(ele)
-  //       console.log(ele,"ll")
-  //     }
-  //   }
-  //   if(q || select) {
-  //     if (ele.status == select || ele.firstname == q) {
-  //       DataFilterArr.push(ele)
-  //     }
-  //   }
-  // })
-  dataOrder?.filter((ele) => {
-    if (q && select) {
-      if (q == ele.firstname && select == ele.status) { 
-        DataFilterArr.push(ele);
-        console.log(DataFilterArr);
-    }
-  //   if (q == ele.firstname || select == ele.status) { 
-  //     DataFilterArr.push(ele);
-  //     console.log(DataFilterArr);
-  }
-    // if(select)
-    // {
-    //   if (ele.status == select  ) {
-    //     DataFilterArr.push(ele)
-    //     console.log(DataFilterArr,"ll")
-    // }
-    // }
-  
-  // }
-  }
-  )
-}
+  const dataOrder = userinfo?.users?.user;
+  // console.log("data orders", dataOrder)
 
 
-function Onclick(e){
-DataSubmit();
-setDatafilter(DataFilterArr);
-}
+  const [items] = React.useState([
+    { label: "All", value: 3, },
+    { label: "Admin", value: 1 },
+    { label: "User", value: 2 },
+  ]);
+  const [statusItems] = React.useState([
+    { value: 3, label: "All" },
+    { value: 1, label: "Active" },
+    { value: 2, label: "Archived" },
+    { value: 0, label: "Suspended" },
+  ]);
+  const statusOptions = [
+    { value: 3, label: "All" },
+    { value: 1, label: "Active" },
+    { value: 2, label: "Archived" },
+    { value: 0, label: "Suspended" },
+  ];
+  const userTypeOptions = [
+    { value: 3, label: "All" },
+    { value: 1, label: "Admin" },
+    { value: 2, label: "User" },
+  ];
 
-function handleSelectChange(e){
-  setSelect(e.target.value)
-  if(e.target.value=="select"){
-    setSelect("")
-  }
-}
-
-  function handleChange(e) {
-    
-    setQ(e.target.value)
-  }
-  console.log(DataFilterArr, "arr")
-  const [orderList, setOrderList] = useState([])
-  const [isEdit, setIsEdit] = useState(false)
-
-  useEffect(() => {
-    if (orders && !orders.length) {
-      onGetOrders()
-    }
-  }, [onGetOrders, orders])
-
-  useEffect(() => {
-    setOrderList(orders)
-  }, [orders])
-
-  useEffect(() => {
-    if (!isEmpty(orders) && !!isEdit) {
-      setOrderList(orders)
-      setIsEdit(false)
-    }
-  }, [orders])
-
-  const [items, setItems] = useState([])
-
-  // const handledata = (e) => {
-  //   console.log(e.target.value)
-  //   setQ(e.target.value)
-  // }
-  // const filterdata = () => {
-  //   console.log(orders)
-  // }
-
-  const [showPerPage, setShowPerPage] = useState(4);
-  const [pagination, setPagination] = useState({
-    start: 0,
-    end: showPerPage,
-  });
-
-  const onPaginationChange = (start, end) => {
-    setPagination({ start: start, end: end });
+  const addUser = () => {
+    history.push("/user/add");
   };
 
-  console.log(q, "fff")
+  const columns = [
+    {
+      dataField: "profile_image",
+      sort: true,
+      formatter: (col, row) => {
+        if (col) return <img alt="" src={col} style={{ width: 50, borderRadius: 50 }} />;
+      },
+    },
+    {
+      dataField: "firstname",
+      text: "First Name",
+      sort: true,
+    },
+    {
+      dataField: "lastname",
+      text: "Last Name",
+      sort: true,
+    },
+    {
+      dataField: "email",
+      text: "Email",
+      sort: true,
+    },
+    {
+      dataField: "role_id",
+      text: "Type",
+      formatter: (col, row) => {
+        if (col == 1) {
+          return "Admin";
+        }
+        if (col == 2) {
+          return "User";
+        }
+        if (col == 3) {
+          return "Retailer";
+        }
+      },
+    },
+    {
+      dataField: "",
+      text: "Action",
+      sort: false,
+      formatter: (col, row) => {
+        return (
+          <>
+            <a className="edit-use">
+              <FaRegEdit onClick={() => updateUserModalBtn(row)} />
+            </a>
+          </>
+        );
+      },
+    },
+    {
+      dataField: "active",
+      text: "Status",
+      sort: false,
+      formatter: (col, row) => {
+        if (col == 1) {
+          return <span className="active-btn"> Active</span>;
+        }
+        if (col == 0) {
+          return <span className="inactive-btn">Suspended </span>;
+        }
+        if (col == 2) {
+          return <span className="inactive-btn">Archived </span>;
+        }
+      },
+    },
+  ]
+
+  const updateUserModalBtn = (row) => {
+    history.push({
+      pathname: "/user/edituser",
+      state: { ...row, },
+    });
+  };
+
+  const handleValidation = () => {
+    let errors = {};
+    let formIsValid = true;
+    if (firstname.match(/[!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~]/)) {
+      formIsValid = false;
+      errors["firstname"] = "firstname cannot contain a special characters";
+    }
+    if (!firstname) {
+      formIsValid = false;
+      errors["firstname"] = "firstname cannot be empty";
+    }
+    setFormState({ errors: errors });
+    return formIsValid;
+  };
+  const handleChangeStatus = async (e) => {
+    // console.log("change status", e.target.value)
+    SetSelectedStatusOption(e.target.value);
+  };
+  const handleTypeStatus = async (e) => {
+    // console.log(" user Type status", e.target.value)
+    SetSelectedTypeOption(e.target.value);
+  };
+  const handleOnUserSearch = (e) => {
+    // console.log("search ", e.target.value)
+    setUserSearch(e.target.value);
+  };
+  // console.log("set user  value", userSearch)
+
+  let postData1 = {
+    sort: -1,
+    pageNumber: pageNumber,
+    active: selectedStatusOption
+      ? selectedStatusOption == 4
+        ? "0"
+        : selectedStatusOption
+      : "",
+  };
+  // if (searchUsers) {
+  //   postData1.searchParam = searchUsers || "";
+  // }
+  // if (selectedTypeOption) {
+  //   postData1.role_id = selectedTypeOption || " +''+";
+  // }
+  useEffect(() => {
+    dispatch(getusers(postData1));
+  }, [dispatch, authToken, pageNumber, selectedStatusOption, selectedTypeOption,
+  ]);
+
+  const onChangePicture = (e) => {
+    if (e.target.files[0]) {
+      setPicture(e.target.files[0]);
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        setImgData(reader.result);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  dataOrder?.map((ele) => {
+    if (ele.firstname == userSearch || ele.role_id == selectedTypeOption ) {
+      DataFilterArr.push(ele)
+    }
+  })
+  // dataOrder?.map((ele) => {
+  //   if (ele.role_id == selectedTypeOption)
+  //     // console.log("dsdw",ele)
+  //     DataFilterArr.push(ele)
+  // })
+  console.log(DataFilterArr, "sksb")
+
+
   return (
-    <React.Fragment>
-        <MetaTags>
-            <title>User | Skote - React Admin & Dashboard Template</title>
-          </MetaTags>
-      <Card>
-        <CardBody>
+    <div>
+      <div className="dashboard-right" style={{ margin: "8% 2%" }}>
+        <div className="d-flex align-items-center mt-4">
+          <h2 className="dashboard-heading">Users</h2>
+          <Button onClick={addUser} className="brown-btn ms-4">
+            <FiUserPlus className="me-2" />
+            Add New User
+          </Button>
+        </div>
+      </div>
+      <div className="user-box m-2">
+        <Row>
+          <Col lg="12" md="12">
+            <Row>
+              <Col lg="5" md="12">
 
-<div className="d-flex mt-3">
-          <div className="mb-4 mt-5 ml-5 fs-3 h4 card-title">User</div>
-          <div>
-            <Link to="/user/add"><button className="mx-5 my-5 px-3 py-1 h4 card-title btn-primary text-light btn btn-primary  btn-sm ">Add User</button></Link>
-          </div>
-          </div>
-          <form action="" >
-            <div className="d-flex align-items-center">
-              <div className="mx-3">
-                <label htmlFor="">Search</label><br />
-                <input type="text" id="Name" value={q} name="q" className="py-1 border border-secondary" placeholder="Search By Name and Email "
-                 onChange={handleChange} required/>
+                {/* <form className="app-search d-none d-lg-block">
+              <div className="position-relative px-2">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="search..."  
+                  onChange={()=>{handleSearch}}
+                />
+                <span className="bx bx-search-alt" />
               </div>
-              <div className="mx-3" >
-                <label htmlFor="">Active</label><br />
-                <select name="active" id="active" value={select} onChange={handleSelectChange} className="py-1 px-5 w-100" required>
-                <option value="select">Select</option>
-                  <option value="1">Active</option>
-                  <option value="0">Not Active</option>
+            </form> */}
+
+                <Form.Group
+                  className=" position-relative searchbox d-flex flex-column user-box new-searchbox"
+                  controlId="formBasicEmail"
+                >
+                  <Form.Label>Search</Form.Label>
+                  <input type="text" name="" id="" value={userSearch} onChange={handleOnUserSearch} />
+                  {/* <DebounceInput
+                    minLength={2}
+                    debounceTimeout={300}
+                    value={searchUsers}
+                    className="mt-2"
+                    onChange={(e) => {
+                      handleOnUserSearch(e, "search");
+                    }}
+                  /> */}
+                  {/* <AiOutlineSearch className="position-absolute search-icon" />  */}
+                  <Form.Text className="text-muted"></Form.Text>
+                </Form.Group>
+              </Col>
+              <Col
+                lg="2"
+                md="12"
+                className="newuserbox pt-0 d-flex flex-column"
+              >
+                <label className="mb-1">Filter by user type</label>
+                <select onChange={handleTypeStatus}>
+                  {items.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
                 </select>
-              </div>
-              <div className="mx-3">
-                <button type="button" className="btn-primary mt-3 px-4 py-2 w-100 btn btn-primary  btn-sm" onClick={Onclick}>Filter</button>
-                </div>
+              </Col>
+              <Col
+                lg="2"
+                md="12"
+                className="newuserbox pt-0 d-flex flex-column"
+              >
+                <label className="mb-1">Filter by status</label>
+
+                {/* <Select
+                      // autoFocus
+                      value={selectedStatusOption}
+                      onChange={handleChangeStatus}
+                      options={statusOptions}
+                    /> */}
+
+                <select className="" onChange={handleChangeStatus}>
+                  {statusItems.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.label}
+                    </option>
+                  ))}
+                </select>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </div>
+      <div>
+        <Row className="m-4">
+          <Col lg="12" md="12">
+            <div className="userbox position-relative add-newuser">
+           
+              {DataFilterArr.length > 0 ? 
+              <BootstrapTable
+                condensed
+                hover
+                keyField="id"
+                responsive={true}
+                bordered={true}
+                data={DataFilterArr || []}
+                columns={columns}
+                pagination={paginationFactory({ sizePerPage: 10 })}
+              />
+                : 
+                <BootstrapTable
+                  condensed
+                  hover
+                  keyField="id"
+                  responsive={true}
+                  bordered={true}
+                  data={userinfo?.users?.user || []}
+                  columns={columns}
+                  pagination={paginationFactory({ sizePerPage: 10 })}
+                />
+              }
             </div>
+          </Col>
+        </Row>
+      </div>
 
-          </form>
 
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">First Name </th>
-                <th scope="col">Last Name  </th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Active</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Datafilter.length > 0 ? (
-                Datafilter?.map((item, index) => {
-                  return (<tr key={index} >
-                    <td>{item.firstname}</td>
-                    <td>{item.lastname}</td>
-                    <td>{item.email}</td>
-                    <td>{item.phone_number}</td>
-                    {
-                      (item.status == 1) ? <Badge className="bg-success w-50">Active</Badge> : <Badge className="bg-danger w-50">Not Active</Badge>
-                    }
-                  </tr>)
-                })
-              ) : orders?.users?.user?.slice(pagination.start, pagination.end).map((item, index) => {
-                return (<tr key={index} >
-                  <td>{item.firstname}</td>
-                  <td>{item.lastname}</td>
-                  <td>{item.email}</td>
-                  <td>{item.phone_number}</td>
-                  {
-                    (item.status == 1) ? <Badge className="bg-success w-50">Active</Badge> : <Badge className="bg-danger w-50">Not Active</Badge>
-                  }
-                </tr>)
-              })}
-            </tbody>
-          </table>
-
-          <Pagination 
-          showPerPage={showPerPage}
-          onPaginationChange={onPaginationChange}
-          total={orders?.users?.user?.length}
-        />
-
-          {/* <ReactPaginate
-           previousLabel= {"previous"}
-           nextLabel={"next"}
-           pageCount={5}
-           onPageChange={handlePageClick}
-           containerClassName={'pagination justify-content-center'}
-           pageClassName={'page-item'}
-           pageLinkClassName={'page-link'}
-           previousClassName={'page-item'}
-           previousLinkClassName={'page-link'}
-           nextClassName={'page-item'}
-           nextLinkClassName={'page-link'}
-           activeClassName={"active"}
-           ></ReactPaginate> */}
-        </CardBody>
-      </Card>
-    </React.Fragment>
+    </div>
   )
 }
 

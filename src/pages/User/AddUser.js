@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { withRouter, Link, Redirect } from "react-router-dom"
+import { withRouter, useHistory ,Link, Redirect } from "react-router-dom"
 
 import { Button, Card, CardBody, Col, Row, Badge } from "reactstrap"
 //redux
@@ -14,7 +14,7 @@ import { addUser } from "helpers/fakebackend_helper"
 import { FaRegEdit } from "react-icons/fa";
 
 const AddUser = props => {
-
+const history =  useHistory()
   const [emailAddress, setEmailAddress] = useState("");
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -159,7 +159,7 @@ const dispatch = useDispatch();
     e.preventDefault();
     if (handleValidation()) {
      dispatch(addusers(addUserData));
-     Redirect("/user")
+     history.push("/user")
     }
   };
 
@@ -366,7 +366,7 @@ const dispatch = useDispatch();
                     >
                       Save Changes
                     </Button>
-                    <Button className="brown-btn d-block gray-btn">Cancel</Button>
+                    <Button className="brown-btn d-block gray-btn" onClick={()=>history.push("/user")}>Cancel</Button>
                   </div>
                 </div>
               </Col>
@@ -375,94 +375,6 @@ const dispatch = useDispatch();
         </section>
       </div>
 
-
-
-
-      {/* <Card>
-        <CardBody>
-
-<div className="d-flex mt-3">
-          <div className="mb-4 mt-5 ml-5 fs-3 h4 card-title">User</div>
-          <div>
-            <Link to="/adduser"><button className="mx-5 my-5 px-3 py-1 h4 card-title btn-primary text-light ">Add User</button></Link>
-          </div>
-          </div>
-          <form action="" >
-            <div className="d-flex align-items-center">
-              <div className="mx-3">
-                <label htmlFor="">Search</label><br />
-                <input type="text" id="Name" value={q} name="q" className="py-1 border border-secondary" placeholder="Search By Name and Email "
-                 onChange={handleChange} required/>
-              </div>
-              <div className="mx-3" >
-                <label htmlFor="">Active</label><br />
-                <select name="active" id="active" value={select} onChange={handleSelectChange} className="py-1 px-5 w-100" required>
-                <option value="select">Select</option>
-                  <option value="1">Active</option>
-                  <option value="0">Not Active</option>
-                </select>
-              </div>
-              <div className="mx-3">
-                <button type="button" className="btn-primary mt-3 px-4 py-2 w-100" onClick={Onclick}>Filter</button>
-                </div>
-            </div>
-
-          </form>
-
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">First Name </th>
-                <th scope="col">Last Name  </th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Active</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Datafilter.length > 0 ? (
-                Datafilter?.map((item, index) => {
-                  return (<tr key={index} >
-                    <td>{item.firstname}</td>
-                    <td>{item.lastname}</td>
-                    <td>{item.email}</td>
-                    <td>{item.phone_number}</td>
-                    {
-                      (item.status == 1) ? <Badge className="bg-success w-50">Active</Badge> : <Badge className="bg-danger w-50">Not Active</Badge>
-                    }
-                  </tr>)
-                })
-              ) : orders?.users?.user?.map((item, index) => {
-                return (<tr key={index} >
-                  <td>{item.firstname}</td>
-                  <td>{item.lastname}</td>
-                  <td>{item.email}</td>
-                  <td>{item.phone_number}</td>
-                  {
-                    (item.status == 1) ? <Badge className="bg-success w-50">Active</Badge> : <Badge className="bg-danger w-50">Not Active</Badge>
-                  }
-                </tr>)
-              })}
-            </tbody>
-          </table>
-
-
-          {/* <ReactPaginate
-           previousLabel= {"previous"}
-           nextLabel={"next"}
-           pageCount={5}
-           onPageChange={handlePageClick}
-           containerClassName={'pagination justify-content-center'}
-           pageClassName={'page-item'}
-           pageLinkClassName={'page-link'}
-           previousClassName={'page-item'}
-           previousLinkClassName={'page-link'}
-           nextClassName={'page-item'}
-           nextLinkClassName={'page-link'}
-           activeClassName={"active"}
-           ></ReactPaginate> 
-        </CardBody>
-      </Card> */}
     </React.Fragment>
   )
 }

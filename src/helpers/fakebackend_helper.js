@@ -138,21 +138,51 @@ export const addMessage = message => post(url.ADD_MESSAGE, message);
 // get orders
 export const getOrders = () => get(`${baseUrl}/users/userList?sort=-1&pageNumber=1&recordsLimit=10`);
 
+//latest user
+export const getLatestUser = () => get(`${baseUrl}/users/userList?sort=-1&pageNumber=1&recordsLimit=10`);
+
+
 //get users
-export const getUser =()=>get(`${baseUrl}/users/userList?sort=-1&pageNumber=1&recordsLimit=10`);
+export const getUser =(data)=>get(`${baseUrl}/users/userList?sort=-1&pageNumber=${data.pageNumber}&recordsLimit=50`);
 
 // add user
 export const addUser =(users)=>post(`${baseUrl}/users/add`,users);
 
+// edit user 
+export const EditUser =(users)=>post(`${baseUrl}/users/update`,users);
+
 //get retailer user
-export const getRetailer =(url)=>get(`${baseUrl}/retailers/list?sort=-1&pageNumber=1&recordsLimit=50`);
+export const getRetailer =(data)=>get(`${baseUrl}/retailers/list?sort=-1&pageNumber=${data.pageNumber}&recordsLimit=50`);
+
+//add retailer
+export const addRetailer =(users)=>post(`${baseUrl}/retailers/add`,users);
+
+// update retailer
+export const EditRetailer = (data)=>post(`${baseUrl}/retailers/update`)
 
 // get user notification
 export const getusersNotification =()=>get(`${baseUrl}/users/listNotification`);
 
 // update notification
 export const getUpdateNotification = ()=>post(`${baseUrl}/users/updateNotification`)
-// add order
+
+//get addvertisment
+export const getAdvertisement =(data)=>get(`${baseUrl}/advertisement/filter?sort=-1&pageNumber=1&recordsLimit=30&searchParam=${data.searchParam}`);
+
+// Add Advertisment 
+export const  Addadvertisment = (data) => post(`${baseUrl}/advertisement/add`,data)
+
+// update advertisement 
+export const  updateAdvertisment = (data) => post(`${baseUrl}/advertisement/update`,data)
+
+// advertisement status
+export const getAdvertisementStatus = (data)=>get(`${baseUrl}/advertisement/setAdvertisementStatus?ad_id=${data.ad_id}&status=0`)
+
+
+// get support 
+export const  getSupport = () => get(`https://seasia.freshdesk.com/api/v2/tickets`)
+
+// add order   
 export const addNewOrder = order => post(url.ADD_NEW_ORDER, order);
 
 // update order

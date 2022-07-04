@@ -42,18 +42,46 @@ import Dashboard from "./dashboard/reducer";
 //Dasboard saas
 import DashboardSaas from "./dashboard-saas/reducer";
 
+// latest user 
+import latestUserList from "./latestUser/reducer"
+
 // user list  
 import Userlist from "./userlist/reducer"
 
 // add user 
 import addUserList from './addUserList/reducer'
 
+// edit user
+import editUser from './EditUser/reducer'
+
+//update user notification
+import updateUserNotification from './UpdateUserNotification/reducer'
+
 // retailer user
 import RetailerList from './Retailers/reducer'
 
+// add retailer
+import addRetailer from "./Retailers/reducer"
 
+// edit retailer
+import editRetailer from "./EditRetailer/reducer"
 // retailer user
 import UserNotificationlist from './Notification/reducer'
+
+//addvertisment
+import  getAdvertisement from './Addvertisment/reducer'
+
+// add advertisment
+import  addAdvertisement from './addAdvertisemnet/reducer'
+
+// update advertisement
+import updateAdvertisement from "./updateAdvertisement/reducer"
+
+//advertisment status
+import AdvertisementStatus from "./advertisementStatus/reducer"
+
+// get support 
+import SupportList from './support/reducer'
 
 const rootReducer = combineReducers({
   // public
@@ -73,10 +101,20 @@ const rootReducer = combineReducers({
   contacts,
   Dashboard,
   DashboardSaas,
+  latestUserList,
   Userlist,
   addUserList,
+  editUser,
+  updateUserNotification,
   RetailerList,
-  UserNotificationlist
+  addRetailer,
+  editRetailer,
+  UserNotificationlist,
+  getAdvertisement,
+  addAdvertisement,
+  updateAdvertisement,
+  AdvertisementStatus,
+  SupportList
 
 })
 

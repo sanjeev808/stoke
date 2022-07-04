@@ -15,15 +15,15 @@ import {
 } from "helpers/fakebackend_helper";
 
 
-function* fetchOrders() {
+function* fetchOrders({payload:data}) {
  
   try {
-    const response = yield call(getUser);
+    const response = yield call(getUser,data);
     yield put(getUserSuccess(response));
   } catch (error) {
     console.log(error,"getError" )
     yield put(getUsersFail(error));
-  }
+  }  
 }
 function* userSaga() {
   yield takeEvery(GET_USER, fetchOrders);

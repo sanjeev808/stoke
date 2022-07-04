@@ -7,7 +7,7 @@ const INIT_STATE = {
   users: [],
 };
 
-const Userlist = (state = INIT_STATE, action) => {
+const Userlist = (state = INIT_STATE, action , data) => {
   switch (action.type) {
     case GET_USER_SUCCESS:
       return {

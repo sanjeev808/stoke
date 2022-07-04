@@ -17,11 +17,20 @@ import mailsSaga from "./mails/saga"
 import contactsSaga from "./contacts/saga";
 import dashboardSaga from "./dashboard/saga";
 import dashboardSaasSaga from "./dashboard-saas/saga";
+import LatestUserSaga from "./latestUser/saga"
 import userSaga from "./userlist/saga"
 import addUserSaga from "./addUserList/saga"
+import editUserSaga from "./EditUser/saga"
+import updateUserNotificationSaga from "./UpdateUserNotification/saga"
 import retaileruserSaga from './Retailers/saga'
+import addRetailerSaga from './Retailers/saga'
+// import editRetailerSaga from "./EditRetailer/saga"
 import userNotificationSaga from './Notification/saga'
-
+import advertismentSaga from "./Addvertisment/saga"
+import addAdvertisementSaga from "./addAdvertisemnet/saga"
+import updateAdvertismentSaga from "./updateAdvertisement/saga"
+import AdvertisementStatusSaga from "./advertisementStatus/saga"
+import supportSaga from "./support/saga"
 export default function* rootSaga() {
   yield all([
     //public
@@ -41,9 +50,19 @@ export default function* rootSaga() {
     fork(contactsSaga),
     fork(dashboardSaga),
     fork(dashboardSaasSaga),
+    fork(LatestUserSaga),
     fork(userSaga),
     fork(addUserSaga),
+    fork(editUserSaga),
+    fork(updateUserNotificationSaga),
     fork(retaileruserSaga),
-    fork(userNotificationSaga)
+    // forK(editRetailerSaga),
+    fork(userNotificationSaga),
+    fork(addRetailerSaga),
+    fork(advertismentSaga),
+    fork(addAdvertisementSaga),
+    fork(updateAdvertismentSaga),
+    fork(AdvertisementStatusSaga),
+    fork(supportSaga)
   ])
 }

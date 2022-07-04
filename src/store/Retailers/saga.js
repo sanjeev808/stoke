@@ -16,7 +16,7 @@ import {
 
 
 function* fetchOrders({payload:data}) {
- console.log(data,"data")
+//  console.log(data,"data")
   try {
     const response = yield call(getRetailer,data);
     console.log("get reponse", response)

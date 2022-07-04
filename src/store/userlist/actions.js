@@ -4,8 +4,9 @@ import {
   GET_USER_FAIL
 } from "./actionTypes"
 
-export const getusers = () => ({
+export const getusers = (data) => ({
   type: GET_USER,
+  payload:data,
 })
 
 export const getUserSuccess = users => ({

@@ -1,160 +1,45 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { withRouter, Link } from "react-router-dom"
-import { isEmpty } from "lodash"
 import BootstrapTable from "react-bootstrap-table-next"
-import paginationFactory, {
-  PaginationListStandalone,
-  PaginationProvider,
-} from "react-bootstrap-table2-paginator"
-import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit"
-
-import { Button, Card, CardBody, Col, Row, Badge } from "reactstrap"
-import { getOrders as onGetOrders } from "store/actions"
-import { getusers } from "store/actions"
+import { getlatestusers } from "store/actions"
 import EcommerceOrdersModal from "../Ecommerce/EcommerceOrders/EcommerceOrdersModal"
 
 //redux
 import { useSelector, useDispatch } from "react-redux"
-import userProfile from "pages/Authentication/user-profile"
+
 const LatestTranaction = props => {
   const dispatch = useDispatch()
-  const orders = useSelector(state => state?.Userlist)
+  const orders = useSelector(state => state?.latestUserList)
   useEffect(() => {
-    dispatch(getusers())
-    // dispatch(onGetOrders())
-  }, [dispatch]);
-  const selectRow = {
-    mode: "checkbox",
-  }
+    dispatch(getlatestusers())
+  
+  }, []);
+  const columns = [
 
-  // const [modal, setModal] = useState(false)
-  // const [modal1, setModal1] = useState(false)
-  const [orderList, setOrderList] = useState([])
-  const [isEdit, setIsEdit] = useState(false)
-
-  //pagination customization
-  // const pageOptions = {
-  //   sizePerPage: 6,
-  //   totalSize: orders, // replace later with size(orders),
-  //   custom: true,
-  // }
-  const { SearchBar } = Search
-
-  // const toggleModal = () => {
-  //   setModal1(!modal1)
-  // }
-  // const toggleViewModal = () => setModal1(!modal1)
-
-  // const EcommerceOrderColumns = toggleModal => [
-  //   {
-  //     dataField: "orderId",
-  //     text: "Order ID",
-  //     sort: true,
-  //     // eslint-disable-next-line react/display-name
-  //     formatter: (cellContent, row) => (
-  //       <Link to="#" className="text-body fw-bold">
-  //         {row.orderId}
-  //       </Link>
-  //     ),
-  //   },
-  //   {
-  //     dataField: "billingName",
-  //     text: "Billing Name",
-  //     sort: true,
-  //   },
-  //   {
-  //     dataField: "orderdate",
-  //     text: "Date",
-  //     sort: true,
-  //   },
-  //   {
-  //     dataField: "total",
-  //     text: "Total",
-  //     sort: true,
-  //   },
-  //   {
-  //     dataField: "paymentStatus",
-  //     text: "Payment Status",
-  //     sort: true,
-  //     // eslint-disable-next-line react/display-name
-  //     formatter: (cellContent, row) => (
-  //       <Badge
-  //         className={"font-size-12 badge-soft-" + row.badgeclass}
-  //         color={row.badgeClass}
-  //         pill
-  //       >
-  //         {row.paymentStatus}
-  //       </Badge>
-  //     ),
-  //   },
-  //   {
-  //     dataField: "paymentMethod",
-  //     isDummyField: true,
-  //     text: "Payment Method",
-  //     sort: true,
-  //     // eslint-disable-next-line react/display-name
-  //     formatter: (cellContent, row) => (
-  //       <>
-  //         <i
-  //           className={
-  //             row.paymentMethod !== "COD"
-  //               ? "fab fa-cc-" + toLowerCase1(row.paymentMethod) + " me-1"
-  //               : "fab fas fa-money-bill-alt me-1"
-  //           }
-  //         />{" "}
-  //         {row.paymentMethod}
-  //       </>
-  //     ),
-  //   },
-  //   {
-  //     dataField: "view",
-  //     isDummyField: true,
-  //     text: "View Details",
-  //     sort: true,
-  //     // eslint-disable-next-line react/display-name
-  //     formatter: () => (
-  //       <Button
-  //         type="button"
-  //         color="primary"
-  //         className="btn-sm btn-rounded"
-  //         onClick={toggleViewModal}
-  //       >
-  //         View Details
-  //       </Button>
-  //     ),
-  //   },
-  // ]
-
-  useEffect(() => {
-    if (orders && !orders.length) {
-      onGetOrders()
-    }
-  }, [onGetOrders, orders])
-
-  useEffect(() => {
-    setOrderList(orders)
-  }, [orders])
-
-  useEffect(() => {
-    if (!isEmpty(orders) && !!isEdit) {
-      setOrderList(orders)
-      setIsEdit(false)
-    }
-  }, [orders])
-
-  // const toggle = () => {
-  //   setModal(!modal)
-  // }
-
-  const toLowerCase1 = str => {
-    return str.toLowerCase()
-  }
-
-  const defaultSorted = [
     {
-      dataField: "orderId",
-      order: "desc",
+      dataField: "firstname",
+
+      formatter: (col, row) => {
+        if (col) return col + " " + row.lastname;
+      },
+      text: "First Name",
+      sort: true,
+      // headerStyle: (colum, colIndex) => ({ width: '50px', textAlign: 'center' })
+    },
+    {
+      dataField: "lastname",
+      // formatter: (col, row) => {
+      //   if (col) return col + " " + row.lastname;
+      // },
+      text: "Last Name",
+      sort: true,
+      // headerStyle: (colum, colIndex) => ({ width: '50px', textAlign: 'center' })
+    },
+    {
+      dataField: "email",
+      text: "Email",
+      sort: true,
     },
   ]
 
@@ -164,83 +49,17 @@ const LatestTranaction = props => {
       //  isOpen={modal1}
       // toggle={toggleViewModal} 
       />
-      <Card>
-        <CardBody>
-          <div className="mb-4 h4 card-title">Latest User</div>
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">First Name </th>
-                <th scope="col">Last Name  </th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col"></th>
+      <BootstrapTable
+        condensed
+        hover
+        keyField="id"
+        responsive={true}
+        bordered={true}
+        data={orders?.Latestusers?.user || []}
+        columns={columns}
+      ></BootstrapTable>
 
-              </tr>
-            </thead>
-            <tbody>
-              {
-                orders?.users?.user?.map((item, index) => {
-                  return (<tr key={index} >
-                    <td>{item.firstname}</td>
-                    <td>{item.lastname}</td>
-                    <td>{item.email}</td>
-                    <td>{item.phone_number}</td>
-                  </tr>)
-                })
-              }
-            </tbody>
-          </table>
-          {/* <PaginationProvider
-            // pagination={paginationFactory(pageOptions)}
-            keyField="id"
-            columns={EcommerceOrderColumns(toggle)}
-            data={orders}
-          >
-          
-            {({ paginationProps, paginationTableProps }) => (
-              <ToolkitProvider
-                keyField="id"
-                data={orders}
-                columns={EcommerceOrderColumns(toggle)}
-                bootstrap4
-                search
-              >
-                {toolkitProps => (
-                  <React.Fragment>
-                    <Row>
-                      <Col xl="12">
-                        <div className="table-responsive">
-                          <BootstrapTable
-                            keyField="id"
-                            responsive
-                            bordered={false}
-                            striped={false}
-                            defaultSorted={defaultSorted}
-                            selectRow={selectRow}
-                            classes={
-                              "table align-middle table-nowrap table-check"
-                            }
-                            headerWrapperClasses={"table-light"}
-                            {...toolkitProps.baseProps}
-                            {...paginationTableProps}
-                          />
-                        </div>
-                      </Col>
-                    </Row>
-                    <div className="pagination pagination-rounded justify-content-end">
-                      <PaginationListStandalone {...paginationProps} />
-                    </div>
-                  </React.Fragment>
-                )}
-              </ToolkitProvider>
-            )}
-          </PaginationProvider> */}
-          <div>
-        <Link to='/user'className="btn-primary p-2">View All User</Link>
-          </div>
-        </CardBody>
-      </Card>
+      <Link to='/user' className="btn-primary p-2 brown-btn ms-4">View All User</Link>
     </React.Fragment>
   )
 }

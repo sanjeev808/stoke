@@ -170,10 +170,25 @@ import ContactsGrid from "../pages/Contacts/contacts-grid"
 import ContactsList from "../pages/Contacts/ContactList/contacts-list"
 import ContactsProfile from "../pages/Contacts/ContactsProfile/contacts-profile"
 
+//latest user
+// import 
+
 //user 
 import User from "../pages/User/index"
 import AddUser from "../pages/User/AddUser"
+import EditUser from "../pages/User/EditUser"
 
+//retailer
+import Addretailer from "../pages/Chat/Addretailer"
+
+
+//Support
+import Support from "../pages/Support/Support"
+
+//Advertisment
+import Advertisment from "../pages/Advertisment/Advertisment"
+import Addadvertisment from "../pages/Advertisment/Addadvertisment"
+import updateadvertisement from "../pages/Advertisment/updateAdvertisement"
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
@@ -192,16 +207,28 @@ const authProtectedRoutes = [
   //chat
   { path: "/chat", component: Chat },
 
+
   //File Manager
   { path: "/apps-filemanager", component: FileManager },
 
    //calendar
   { path: "/calendar", component: Calendar },
   
+
   //user
   {path: "/user", component: User },
   {path:"/user/add", component:AddUser},
+  {path:"/user/edituser", component:EditUser},
+ 
+  {path:"/retailer/add", component:Addretailer},
 
+  //Support
+  {path: '/support', component:Support},
+   
+  // Advertisment
+  {path:'/advertisment', component:Advertisment},
+  {path:'/add-advertisements',component:Addadvertisment},
+  { path :"/update-advertisement", component:updateadvertisement},
    //profile
   { path: "/profile", component: UserProfile },
 

@@ -7,8 +7,7 @@ import {
       retailer: [],
     };
     
-    const RetailerList = (state = INIT_STATE, action) => {
-      console.log("5560",state)
+    const RetailerList = (state = INIT_STATE, action,data) => {
       switch (action.type) {
         case GET_RETAILER_SUCCESS:
           return {

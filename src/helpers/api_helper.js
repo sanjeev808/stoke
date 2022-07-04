@@ -18,7 +18,7 @@ axiosApi.interceptors.response.use(
   error => Promise.reject(error)
 );
 
-export async function get(url) {
+export async function get(url,data) {
  let tokenData=JSON.parse(localStorage.getItem("authUser"))?.data.token
 const headerstoken= {
   headers: {
@@ -27,16 +27,16 @@ const headerstoken= {
 }
    return await axiosApi.get(url, { ...headerstoken }).then(response => response.data);
 }
-
 export async function post(url, data) {
  let tokenData=JSON.parse(localStorage.getItem("authUser"))?.data.token
  console.log(data,"dataaaaaaaaaaaaaaaaaaaaaaaaaa")
   const headerstoken= {
     headers: {
+      "Content-Type": "application/json",
     'Authorization': `Bearer ${tokenData}` 
   }
   }
-  console.log("11122",headerstoken)
+  console.log("get token",headerstoken)
   return axiosApi
     .post(url, { ...data },{ ...headerstoken } )
     .then(response => response.data);

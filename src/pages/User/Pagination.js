@@ -1,3 +1,37 @@
+// import React, { useState } from 'react'
+
+// export default function usePagination(perPageRecords,TotalRecodrs) {
+
+//   const totalPages = Math.ceil(TotalRecodrs/perPageRecords);
+
+// const [startpageIndex,setStartPageIndex] =useState(0)
+// const [endPageIndex,SetendPageIndex] = useState(perPageRecords-1);
+// const [currentPage,setCurrentPage] = useState(1);
+
+//   Const disPage = (pageNo) =>{
+
+//     setCurrentPage(pageNo);
+//   }
+
+//   return (
+//     <div>Pagination</div>
+//   )
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState, useEffect } from "react";
 
 const Pagination = ({ showPerPage, onPaginationChange, total }) => {

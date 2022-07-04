@@ -41,7 +41,6 @@ import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 //i18n
 import { withTranslation } from "react-i18next";
-
 //redux
 import { useSelector, useDispatch } from "react-redux";
 
@@ -52,7 +51,10 @@ const Dashboard = props => {
   const { chartsData } = useSelector(state => ({
     chartsData: state.Dashboard.chartsData
   }));
-
+  
+  const orders = useSelector(state => state?.latestUserList)
+  const [latestUser,setLatestUser]=useState("")
+  // console.log("get latest user data ",orders?.Latestusers?.count)
   const reports = [
     { title: "Orders", iconClass: "bx-copy-alt", description: "1,235" },
     { title: "Revenue", iconClass: "bx-archive-in", description: "$35, 723" },
