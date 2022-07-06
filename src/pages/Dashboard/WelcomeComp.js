@@ -7,9 +7,11 @@ import avatar1 from "../../assets/images/users/avatar-1.jpg"
 import profileImg from "../../assets/images/profile-img.png"
 import {useDispatch, useSelector} from "react-redux"
 const WelcomeComp = () => {
+  const counter = JSON.parse(localStorage.getItem('authUser'));
+  // console.log('auth data',counter?.data?.userData)
 
-  const counter = useSelector(state => state.Login?.userDetails?.data?.userData?.username)
-  // console.log(counter)
+  // const counter = useSelector(state => state.Login?.userDetails)
+  // console.log(counter?.data?.userData?.profile_image,"user data")
   
   return (
     <React.Fragment>
@@ -32,13 +34,13 @@ const WelcomeComp = () => {
             <Col sm="4">
               <div className="avatar-md profile-user-wid mb-4">
                 <img
-                  src={avatar1}
+                  src={counter?.data?.userData?.profile_image}
                   alt=""
                   className="img-thumbnail rounded-circle"
                 />
               </div>
               <h5 className="font-size-15 text-truncate">
-              {counter}
+              {counter?.data?.userData?.username}
               </h5>
               <p className="text-muted mb-0 text-truncate">UI/UX Designer</p>
             </Col>

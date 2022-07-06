@@ -106,7 +106,7 @@ import { getusersNotification, updateUserNotification } from "store/actions";
   return (
     <div>
       <section className="main-dashboard position-relative">
-        <div className="dashboard-right">
+        <div className="dashboard-right"  style={{ marginTop: 74, marginLeft: 15 }}>
           <h2 className="dashboard-heading">Notifications</h2>
 
           <Row className="mt-3">

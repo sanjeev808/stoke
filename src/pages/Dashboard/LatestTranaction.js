@@ -8,13 +8,22 @@ import EcommerceOrdersModal from "../Ecommerce/EcommerceOrders/EcommerceOrdersMo
 //redux
 import { useSelector, useDispatch } from "react-redux"
 
+const auth = JSON.parse(localStorage.getItem('authUser'));
+
+const authToken = auth?.data?.token
+console.log('auth data',authToken)
+
 const LatestTranaction = props => {
   const dispatch = useDispatch()
   const orders = useSelector(state => state?.latestUserList)
   useEffect(() => {
-    dispatch(getlatestusers())
+    if(authToken)
+    {
+      dispatch(getlatestusers(authToken))
+    }
+    
   
-  }, []);
+  }, [dispatch ,authToken]);
   const columns = [
 
     {

@@ -8,6 +8,7 @@ import {
 } from "./actionTypes"
 
 export const loginUser = (user, history) => {
+  // console.log(user,'login user--------****#####@@@@@@@@@')
   return {
     type: LOGIN_USER,
     payload: { user, history },
@@ -15,6 +16,7 @@ export const loginUser = (user, history) => {
 }
 
 export const loginSuccess = user => {
+  // console.log(user,'user login success-----^^^^^^^^@@#$@^&@%^@$@%')
   return {
     type: LOGIN_SUCCESS,
     payload: user,

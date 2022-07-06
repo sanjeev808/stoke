@@ -24,6 +24,7 @@ import editUserSaga from "./EditUser/saga"
 import updateUserNotificationSaga from "./UpdateUserNotification/saga"
 import retaileruserSaga from './Retailers/saga'
 import addRetailerSaga from './Retailers/saga'
+import searchretailerSaga from "./searchRetailer/saga"
 // import editRetailerSaga from "./EditRetailer/saga"
 import userNotificationSaga from './Notification/saga'
 import advertismentSaga from "./Addvertisment/saga"
@@ -56,6 +57,7 @@ export default function* rootSaga() {
     fork(editUserSaga),
     fork(updateUserNotificationSaga),
     fork(retaileruserSaga),
+    fork(searchretailerSaga),
     // forK(editRetailerSaga),
     fork(userNotificationSaga),
     fork(addRetailerSaga),

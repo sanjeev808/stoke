@@ -57,6 +57,9 @@ export * from "./Retailers/actions"
 // add retailer
 export * from "./addRetailer/actions"
 
+//search retailer
+export * from "./searchRetailer/actions"
+
 // edit retailer
 export  * from "./EditRetailer/actions"
 

@@ -152,7 +152,7 @@ export const addUser =(users)=>post(`${baseUrl}/users/add`,users);
 export const EditUser =(users)=>post(`${baseUrl}/users/update`,users);
 
 //get retailer user
-export const getRetailer =(data)=>get(`${baseUrl}/retailers/list?sort=-1&pageNumber=${data.pageNumber}&recordsLimit=50`);
+export const getRetailer =(data)=>get(`${baseUrl}/retailers/list?sort=-1&pageNumber=${data.page}&recordsLimit=50`);
 
 //add retailer
 export const addRetailer =(users)=>post(`${baseUrl}/retailers/add`,users);

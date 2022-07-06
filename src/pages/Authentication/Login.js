@@ -51,7 +51,7 @@ const Login = props => {
   });
 
   const { error } = useSelector(state => ({
-    error: state.Login.error,
+    error: state.login.error,
   }));
 
   // handleValidSubmit

@@ -4,7 +4,7 @@ import { combineReducers } from "redux"
 import Layout from "./layout/reducer"
 
 // Authentication
-import Login from "./auth/login/reducer"
+import login from "./auth/login/reducer"
 import Account from "./auth/register/reducer"
 import ForgetPassword from "./auth/forgetpwd/reducer"
 import Profile from "./auth/profile/reducer"
@@ -65,6 +65,9 @@ import addRetailer from "./Retailers/reducer"
 
 // edit retailer
 import editRetailer from "./EditRetailer/reducer"
+
+// serach retailer 
+import searchRetailer from "./searchRetailer/reducer"
 // retailer user
 import UserNotificationlist from './Notification/reducer'
 
@@ -86,7 +89,7 @@ import SupportList from './support/reducer'
 const rootReducer = combineReducers({
   // public
   Layout,
-  Login,
+  login,
   Account,
   ForgetPassword,
   Profile,
@@ -109,6 +112,7 @@ const rootReducer = combineReducers({
   RetailerList,
   addRetailer,
   editRetailer,
+  searchRetailer,
   UserNotificationlist,
   getAdvertisement,
   addAdvertisement,

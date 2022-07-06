@@ -32,7 +32,7 @@ export async function post(url, data) {
  console.log(data,"dataaaaaaaaaaaaaaaaaaaaaaaaaa")
   const headerstoken= {
     headers: {
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
     'Authorization': `Bearer ${tokenData}` 
   }
   }

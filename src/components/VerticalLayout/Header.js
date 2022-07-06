@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from "react";
 
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -35,11 +35,15 @@ import {
   changeSidebarType,
 } from "../../store/actions";
 
+
+
 const Header = props => {
   const [search, setsearch] = useState(false);
   const [megaMenu, setmegaMenu] = useState(false);
   const [socialDrp, setsocialDrp] = useState(false);
-
+  const counter = useSelector(state => state.Login?.userDetails)
+  console.log(counter?.data?.userData?.profile_image,"user data")
+  
   function toggleFullscreen() {
     if (
       !document.fullscreenElement &&
@@ -86,13 +90,13 @@ const Header = props => {
             <div className="navbar-brand-box d-lg-none d-md-block">
               <Link to="/" className="logo logo-dark">
                 <span className="logo-sm">
-                  <img src={logo} alt="" height="22" />
+                  <img src={counter?.data?.userData?.profile_image} alt="" height="22" />
                 </span>
               </Link>
 
               <Link to="/" className="logo logo-light">
                 <span className="logo-sm">
-                  <img src={logoLightSvg} alt="" height="22" />
+                  <img src={counter?.data?.userData?.profile_image} alt="" height="22" />
                 </span>
               </Link>
             </div>

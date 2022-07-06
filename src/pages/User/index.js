@@ -63,8 +63,6 @@ const user = props => {
   const history = useHistory()
   const dispatch = useDispatch();
 
-  const auth = useSelector(state => state.Login?.userDetails);
-  const authToken = auth?.data?.token
   const userinfo = useSelector(state => state?.Userlist)
   const DataFilterArr = [];
   const dataOrder = userinfo?.users?.user;
@@ -77,16 +75,16 @@ const user = props => {
     { label: "User", value: 2 },
   ]);
   const [statusItems] = React.useState([
-    { value: 3, label: "All" },
+    { value: 0, label: "All" },
     { value: 1, label: "Active" },
     { value: 2, label: "Archived" },
-    { value: 0, label: "Suspended" },
+    { value: 3, label: "Suspended" },
   ]);
   const statusOptions = [
-    { value: 3, label: "All" },
+    { value: 0, label: "All" },
     { value: 1, label: "Active" },
     { value: 2, label: "Archived" },
-    { value: 0, label: "Suspended" },
+    { value: 3, label: "Suspended" },
   ];
   const userTypeOptions = [
     { value: 3, label: "All" },
@@ -190,7 +188,7 @@ const user = props => {
     return formIsValid;
   };
   const handleChangeStatus = async (e) => {
-    // console.log("change status", e.target.value)
+    console.log("change status", e.target.value)
     SetSelectedStatusOption(e.target.value);
   };
   const handleTypeStatus = async (e) => {
@@ -219,7 +217,14 @@ const user = props => {
   //   postData1.role_id = selectedTypeOption || " +''+";
   // }
   useEffect(() => {
-    dispatch(getusers(postData1));
+    if(authToken)
+    {
+      console.log("authToken found")
+    dispatch(getusers(postData1,authToken));
+    }
+    else{
+      console.log("authToken is not  found")
+    }
   }, [dispatch, authToken, pageNumber, selectedStatusOption, selectedTypeOption,
   ]);
 
@@ -240,8 +245,8 @@ const user = props => {
     }
   })
   // dataOrder?.map((ele) => {
-  //   if (ele.role_id == selectedTypeOption)
-  //     // console.log("dsdw",ele)
+  //   if (ele.status == selectedStatusOption)
+  //     console.log("dsdw",ele)
   //     DataFilterArr.push(ele)
   // })
   console.log(DataFilterArr, "sksb")
@@ -281,7 +286,13 @@ const user = props => {
                   controlId="formBasicEmail"
                 >
                   <Form.Label>Search</Form.Label>
-                  <input type="text" name="" id="" value={userSearch} onChange={handleOnUserSearch} />
+                  <Form.Control 
+                  type="text"
+                  name="" 
+                  id="" 
+                  placeholder="Search"
+                  value={userSearch} 
+                  onChange={handleOnUserSearch} />
                   {/* <DebounceInput
                     minLength={2}
                     debounceTimeout={300}
@@ -299,9 +310,9 @@ const user = props => {
                 lg="2"
                 md="12"
                 className="newuserbox pt-0 d-flex flex-column"
-              >
+              > 
                 <label className="mb-1">Filter by user type</label>
-                <select onChange={handleTypeStatus}>
+                <select onChange={handleTypeStatus} className='w-100 py-1  px-1 mt-1 rounded' style={{border:"1px solid #ced4da",color:"#495057"}}>
                   {items.map((item) => (
                     <option key={item.value} value={item.value}>
                       {item.label}
@@ -309,27 +320,21 @@ const user = props => {
                   ))}
                 </select>
               </Col>
-              <Col
+              <Col   
                 lg="2"
                 md="12"
                 className="newuserbox pt-0 d-flex flex-column"
               >
-                <label className="mb-1">Filter by status</label>
+                {/* <label className="mb-1">Filter by status</label> */}
 
-                {/* <Select
-                      // autoFocus
-                      value={selectedStatusOption}
-                      onChange={handleChangeStatus}
-                      options={statusOptions}
-                    /> */}
-
-                <select className="" onChange={handleChangeStatus}>
+              
+                {/* <select className="" onChange={handleChangeStatus}>
                   {statusItems.map((item) => (
                     <option key={item.value} value={item.value}>
                       {item.label}
                     </option>
                   ))}
-                </select>
+                </select> */}
               </Col>
             </Row>
           </Col>

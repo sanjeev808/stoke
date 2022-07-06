@@ -7,19 +7,14 @@ import {
 } from "./actionTypes"
 
 const initialState = {
-  userDetails: null,
+  userDetails: {},
 
-  // status: "idle",
-  // otp: null,
-  // userList: null,
-  // latestUsersList: null,
-  // retailersList: null,
-  // notificationsList: null,
+
 };
 
 const login = (state = initialState, action) => {
   // debugger
-  // console.log(action,"sanjeev")
+  // console.log(state,"login state-----**********")
   switch (action.type) {
     case LOGIN_USER:
       state = {

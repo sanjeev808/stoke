@@ -31,6 +31,8 @@ import { useHistory,useLocation } from "react-router-dom";
 import { getAdvertisementStatus } from "store/actions";
 const Advertisment = () => {
  
+const auths = JSON.parse(localStorage.getItem('authUser'));
+const authTokens = auths?.data?.token
   const auth = useSelector(state=>state?.advertisment);
   const dispatch = useDispatch();
   const authToken = auth?.data?.token;
@@ -52,19 +54,6 @@ const handleOnUserSearch = (e)=>{
   };
 
   const columns = [
-    // {
-    //   dataField: "image",
-    //   sort: true,
-    //   formatter: (col, row) => {
-    //     if (col) return <img alt="" src={col} />;
-    //     else {
-    //       return <img alt="" 
-    //       src={avatar}
-    //        />;
-    //     }
-    //   },
-    // },
-
     {
       dataField: "name",
       text: "Name",
@@ -96,9 +85,9 @@ const handleOnUserSearch = (e)=>{
             <a className="edit-use" style={{fontSize:25}}>
               <FaTrash onClick={() => deleteAdvertisement(row?._id)} />
             </a>
-            <a className="edit-use" style={{fontSize:25}}>
+            {/* <a className="edit-use" style={{fontSize:25}}>
               <FaTrash onClick={() => advertisementDelete(row?._id)} />
-            </a>
+            </a> */}
           </>
         );
       },
@@ -121,10 +110,23 @@ const handleOnUserSearch = (e)=>{
     });
   };
   let  post= { ad_id: adID }
+  
   const deleteAd = async (e) => {
     e.preventDefault();
     await dispatch(
       getAdvertisementStatus(post)
+    );
+    setdeleteAdModal(false);
+    dispatch(
+      getAdvertisementListAsync({
+        postData: {
+          searchParam: searchAdvertisements || "",
+          sort: -1,
+          pageNumber: 1,
+          recordsLimit: 10,
+        },
+        authToken,
+      })
     );
   }
 
@@ -142,7 +144,6 @@ const handleOnUserSearch = (e)=>{
     console.log("advertisement row data",row)
     setAdID(row)
     setdeleteAdModal(deleteAdModal ? false : true);
-
   };
   return (
     <React.Fragment>
@@ -151,7 +152,7 @@ const handleOnUserSearch = (e)=>{
             <title>Advertisements | Skote - React Admin & Dashboard Template</title>
        </MetaTags>
      
-       <div className="dashboard-right">
+       <div className="dashboard-right"  style={{ marginTop: 74, marginLeft: 15 }}>
           <div className="d-flex align-items-center mt-2">
             <h2 className="dashboard-heading">Advertisements</h2>
             <Button onClick={addUser} className="brown-btn ms-4">
@@ -212,7 +213,7 @@ const handleOnUserSearch = (e)=>{
 {/* modal code end */}
 
 
-         <Modal className="menumodal py-5" show={deleteAdModal}>
+         <Modal isOpen={deleteAdModal}>
               <div className="w-100 d-flex justify-content-end">
                 <span
                   className="px-2 py-2 fw-bold me-2 mt-2 cross-btn"
@@ -249,141 +250,3 @@ const handleOnUserSearch = (e)=>{
   )
 }
 export default Advertisment
-
-
-
-
-
-// import React, { useEffect, useState } from "react";
-// import { Form, Button, Row, Col,  Modal, ModalHeader, ModalBody} from "react-bootstrap";
-
-// import { useDispatch, useSelector } from "react-redux";
-// import { useHistory } from "react-router-dom";
-
-// import { AiOutlineSearch } from "react-icons/ai";
-// import { FiUserPlus } from "react-icons/fi";
-// import { FaRegEdit, FaTrash } from "react-icons/fa";
-// import { ImCancelCircle } from "react-icons/im";
-// import BootstrapTable from "react-bootstrap-table-next";
-// import paginationFactory from "react-bootstrap-table2-paginator";
-// import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
-// import { useParams } from "react-router-dom";
-// import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-// import {  AiOutlineClose } from "react-icons/ai";
-// import { getAddvertisment } from "helpers/fakebackend_helper";
-
-// const Advertisements = () => {
-//   const auth = useSelector(state => state.Login?.userDetails);
-//   console.log("auth data get", auth)
-//   const authToken = auth?.data?.token
-//   console.log("auth data get", authToken)
-//   const dispatch = useDispatch();
-
-//   const advertisementDataInfo = useSelector(state=>state?.addvertismentlist);
-//   console.log("advertisementDataInfo0",advertisementDataInfo)
-//   const [searchAdvertisements, setSearchAdvertisements] = useState("");
-//   const [deleteAdModal, setdeleteAdModal] = useState(false)
-//   const [adID, setAdID] = useState("");
-
-//   let history = useHistory();
-//   const [formState, setFormState] = useState({
-//     errors: {},
-//   });
-//   const addUser = () => {
-//     history.push("/add-advertisements");
-//   };
-
-//   const columns = [
-//     {
-//       dataField: "image",
-//       sort: true,
-//       formatter: (col, row) => {
-//         if (col) return <img alt="" src={col} />;
-//         else {
-//           return <img alt="" src={avtar} />;
-//         }
-//       },
-//     },
-
-//     {
-//       dataField: "name",
-//       text: "Name",
-//       sort: true,
-//     },
-//     {
-//       dataField: "description",
-//       text: "Description",
-//       sort: true,
-//     },
-//     {
-//       dataField: "link",
-//       text: "Link",
-//     },
-
-//     {
-//       dataField: "",
-//       text: "Action",
-//       sort: false,
-//       // headerStyle: (colum, colIndex) => ({ width: '10%', textAlign: 'left' }),
-//       formatter: (col, row) => {
-//         return (
-//           <>
-//             <a className="edit-use">
-//               <FaRegEdit onClick={() => updateAds(row)} />
-//             </a>
-
-//             <a className="edit-use ms-4">
-            
-//               <FaTrash onClick={() => deleteAdvertisement(row?._id)} />
-//             </a>
-//           </>
-//         );
-//       },
-//     },
-    
-//   ];
-
-  
-//   const updateAds=(row)=>{
-//     history.push({
-//       pathname: "/edit-advertisements",
-//            state: {
-//         row,
-//       },
-//     });
-//   }
-
-//   const deleteAdvertisement = (row) => {
-//     setAdID(row)
-//     setdeleteAdModal(deleteAdModal ? false : true);
-//   };
-//   const handleOnUserSearch = (e) => {
-//     setSearchAdvertisements(e.target.value);
-//   };
-//   useEffect(() => {
- 
-//       dispatch(
-//         getAddvertisment({
-//           postData: {
-//             searchParam: searchAdvertisements,
-//             sort: -1,
-//             pageNumber: 1,
-//             recordsLimit: 10,
-//           },
-//           authToken,
-//         })
-//       );
-
-//   },[searchAdvertisements]);
-
-// return(
-//   <>
-  
-//   </>
-// )
-// }
-
-// export default Advertisements
-
-
-
