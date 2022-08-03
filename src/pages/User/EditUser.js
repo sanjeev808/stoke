@@ -20,7 +20,7 @@ import { useHistory } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { editusers } from "store/actions"
 import { getusers } from "store/actions"
-
+import avtar from "../../assets/images/users/avtar.png"
 // import {
 //   selectAuth,
 //   updateUsersAsync,
@@ -386,13 +386,11 @@ const EditUsers = (props) => {
                     <div className="my-3 user-picsec d-flex flex-column align-items-center">
                       <div className="position-relative userimg-editicon">
                         <img
-                          src={imgData || userImage}
-                          className="img-fluid"
+                          src={imgData || userImage || avtar}
+                          className="img-fluid rounded-circle"  width={170} height={170}
                           alt=""
                         />
-                        <a>
-                          <FaRegEdit onClick={handleClick} />
-                        </a>
+                        <span className=""> <FaRegEdit onClick={handleClick} /></span>
                         <input
                           id="profilePic"
                           className="profile-secpic"

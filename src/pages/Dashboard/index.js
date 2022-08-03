@@ -56,12 +56,12 @@ const Dashboard = props => {
   const [latestUser,setLatestUser]=useState("")
   // console.log("get latest user data ",orders?.Latestusers?.count)
   const reports = [
-    { title: "Orders", iconClass: "bx-copy-alt", description: "1,235" },
-    { title: "Revenue", iconClass: "bx-archive-in", description: "$35, 723" },
+    { title: "Total users", iconClass: "bx bx-user", description: orders?.Latestusers?.count },
+    { title: "Partner Reatiler ", iconClass: "bx bx-store", description: "98" },
     {
-      title: "Average Price",
+      title: "Total Referrals",
       iconClass: "bx-purchase-tag-alt",
-      description: "$16.2",
+      description: "1320",
     },
   ];
 
@@ -219,7 +219,7 @@ const Dashboard = props => {
       </div>
 
       {/* subscribe ModalHeader */}
-      <Modal
+      {/* <Modal
         isOpen={subscribemodal}
         role="dialog"
         autoFocus={true}
@@ -268,7 +268,7 @@ const Dashboard = props => {
             </div>
           </div>
         </div>
-      </Modal>
+      </Modal> */}
 
       <Modal
         isOpen={modal}

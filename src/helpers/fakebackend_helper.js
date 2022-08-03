@@ -143,7 +143,7 @@ export const getLatestUser = () => get(`${baseUrl}/users/userList?sort=-1&pageNu
 
 
 //get users
-export const getUser =(data)=>get(`${baseUrl}/users/userList?sort=-1&pageNumber=${data.pageNumber}&recordsLimit=50`);
+export const getUser =(data)=>get(`${baseUrl}/users/userList?sort=-1&pageNumber=${data.pageNumber}&recordsLimit=100`);
 
 // add user
 export const addUser =(users)=>post(`${baseUrl}/users/add`,users);
@@ -158,13 +158,16 @@ export const getRetailer =(data)=>get(`${baseUrl}/retailers/list?sort=-1&pageNum
 export const addRetailer =(users)=>post(`${baseUrl}/retailers/add`,users);
 
 // update retailer
-export const EditRetailer = (data)=>post(`${baseUrl}/retailers/update`)
+export const EditRetailer = (data)=>post(`${baseUrl}/retailers/update`,data)
+
+// search retailer 
+export const SearchRetailer = (data)=>post(`${baseUrl}/retailers/search`,data)
 
 // get user notification
 export const getusersNotification =()=>get(`${baseUrl}/users/listNotification`);
 
 // update notification
-export const getUpdateNotification = ()=>post(`${baseUrl}/users/updateNotification`)
+export const getUpdateNotification = (data)=>post(`${baseUrl}/users/updateNotification`,data)
 
 //get addvertisment
 export const getAdvertisement =(data)=>get(`${baseUrl}/advertisement/filter?sort=-1&pageNumber=1&recordsLimit=30&searchParam=${data.searchParam}`);

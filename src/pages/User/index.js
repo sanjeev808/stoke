@@ -38,7 +38,8 @@ import ReactPaginate from "react-paginate"
 import { useSelector, useDispatch } from "react-redux"
 
 const user = props => {
-
+  const auth = JSON.parse(localStorage.getItem('authUser'));
+  const authToken = auth?.data?.token
   const [userName, setUserName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -66,7 +67,7 @@ const user = props => {
   const userinfo = useSelector(state => state?.Userlist)
   const DataFilterArr = [];
   const dataOrder = userinfo?.users?.user;
-  // console.log("data orders", dataOrder)
+  console.log("data orders", dataOrder)
 
 
   const [items] = React.useState([
@@ -101,7 +102,7 @@ const user = props => {
       dataField: "profile_image",
       sort: true,
       formatter: (col, row) => {
-        if (col) return <img alt="" src={col} style={{ width: 50, borderRadius: 50 }} />;
+        if (col) return <img alt="" src={col} style={{ width: 40, borderRadius: 50 }} />;
       },
     },
     {
@@ -292,6 +293,7 @@ const user = props => {
                   id="" 
                   placeholder="Search"
                   value={userSearch} 
+                  style={{padding:9}}
                   onChange={handleOnUserSearch} />
                   {/* <DebounceInput
                     minLength={2}
@@ -312,7 +314,7 @@ const user = props => {
                 className="newuserbox pt-0 d-flex flex-column"
               > 
                 <label className="mb-1">Filter by user type</label>
-                <select onChange={handleTypeStatus} className='w-100 py-1  px-1 mt-1 rounded' style={{border:"1px solid #ced4da",color:"#495057"}}>
+                <select onChange={handleTypeStatus} className='w-100 py-2  px-1 mt-1 rounded' style={{border:"1px solid #ced4da",color:"#495057"}}>
                   {items.map((item) => (
                     <option key={item.value} value={item.value}>
                       {item.label}

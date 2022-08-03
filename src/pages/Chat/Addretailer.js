@@ -19,6 +19,8 @@ import { addRetailer } from "helpers/fakebackend_helper"
 
 
 const AddRetailers = () => {
+  const auth = JSON.parse(localStorage.getItem('authUser'));
+  const authToken = auth?.data?.token
   const dispatch = useDispatch();
   let history = useHistory();
   const [firstname, setFirstName] = useState("");
@@ -52,8 +54,9 @@ const AddRetailers = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (handleValidation()) {
-      dispatch(addRetailer(retailerData));
+   
       history.push("/chat")
+      dispatch(addRetailer(retailerData,authToken,history));
     }
   };
 

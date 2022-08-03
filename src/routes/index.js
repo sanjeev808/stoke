@@ -181,6 +181,8 @@ import EditUser from "../pages/User/EditUser"
 //retailer
 import Addretailer from "../pages/Chat/Addretailer"
 
+//Notification
+ import notification from "../pages/notification/notification"
 
 //Support
 import Support from "../pages/Support/Support"
@@ -212,16 +214,16 @@ const authProtectedRoutes = [
   { path: "/apps-filemanager", component: FileManager },
 
    //calendar
-  { path: "/calendar", component: Calendar },
+  // { path: "/calendar", component: Calendar },
   
 
   //user
   {path: "/user", component: User },
   {path:"/user/add", component:AddUser},
   {path:"/user/edituser", component:EditUser},
- 
   {path:"/retailer/add", component:Addretailer},
 
+  {path:"/notification", component:notification},
   //Support
   {path: '/support', component:Support},
    

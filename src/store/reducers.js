@@ -64,7 +64,7 @@ import RetailerList from './Retailers/reducer'
 import addRetailer from "./Retailers/reducer"
 
 // edit retailer
-import editRetailer from "./EditRetailer/reducer"
+import editretailer from "./editRetailer/reducer"
 
 // serach retailer 
 import searchRetailer from "./searchRetailer/reducer"
@@ -111,7 +111,7 @@ const rootReducer = combineReducers({
   updateUserNotification,
   RetailerList,
   addRetailer,
-  editRetailer,
+  editretailer,
   searchRetailer,
   UserNotificationlist,
   getAdvertisement,

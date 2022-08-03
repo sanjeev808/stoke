@@ -5,7 +5,7 @@ import accessToken from "./jwt-token-access/accessToken";
 const token = accessToken;
 
 //apply base url for axios
-const API_URL = "https://stgn.appsndevs.com/snapcident/users/";
+const API_URL = "https://stgn.appsndevs.com/snapcident/users";
 
 const axiosApi = axios.create({
   baseURL: API_URL,
@@ -32,7 +32,7 @@ export async function post(url, data) {
  console.log(data,"dataaaaaaaaaaaaaaaaaaaaaaaaaa")
   const headerstoken= {
     headers: {
-      // "Content-Type": "application/json",
+      "Content-Type": "application/json",
     'Authorization': `Bearer ${tokenData}` 
   }
   }

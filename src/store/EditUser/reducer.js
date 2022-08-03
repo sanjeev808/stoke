@@ -8,6 +8,7 @@ import {
     };
     
     const editUser = (state = INIT_STATE, action) => {
+      console.log("actions data2323223434",action)
       switch (action.type) {
         case EDIT_USER_SUCCESS:
           return {

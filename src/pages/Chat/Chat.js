@@ -22,9 +22,10 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import Select from "react-select";
 import { getRetailer } from "../../store/Retailers/actions"
-import { Editretailer } from "../../store/EditRetailer/actions"
-
+import {editRetailer} from "../../store/editRetailer/actions"
+import { searchretailer } from "../../store/searchRetailer/actions"
 // import {
+
 //   selectAuth,
 //   getRetailersListAsync,
 //   retailersList,
@@ -61,7 +62,7 @@ const Retailers = () => {
   // }, [dispatch, authToken,page]);
 
   const addUser = () => {
-    history.push("/add-retailer");
+    history.push("/retailer/add")
   };
 
   const columns = [
@@ -100,10 +101,8 @@ const Retailers = () => {
       sort: false,
       formatter: (col, row) => {
         return (
-          <>
-            <a href="#">
-              <FaRegEdit onClick={() => updateRetailerModalBtn(row)} />
-            </a>
+          <> 
+              <FaRegEdit  onClick={() => updateRetailerModalBtn(row)} />
             {/* <a href="#">
               <ImCancelCircle className="ms-3" />
             </a> */}
@@ -112,17 +111,17 @@ const Retailers = () => {
       },
     },
   ];
-  const EditretailerData ={
-     name: retailerName,
-          retailer_id: retailerID,
-          active: selectedOption.value,
+let Data = {
+    name: retailerName,
+    retailer_id: retailerID,
+    active: selectedOption.value,
   }
-  console.log("21313",EditretailerData)
+  console.log("##@$@#$@#$#",Data)
   const updateRetailersData = async (e) => {
     e.preventDefault();
     // if (handleValidation()) {
-    await dispatch(
-      Editretailer({EditretailerData, authToken}));
+    await dispatch(editRetailer(Data,authToken,location)
+    );
     // }
     setupdateRetailerModal(false);
     await dispatch(getRetailer({ page, authToken }));
@@ -151,6 +150,7 @@ const Retailers = () => {
   };
 
   const handleOnRetailerSearch = (e) => {
+    // console.log(e.target.value ,"dfdsf")
     setSearchRetailers(e.target.value);
     // dispatch(getRetailersListAsync({ postData: { searchParam: searchRetailers, sort:-1,pageNumber:1,recordsLimit:10},authToken}));
   };
@@ -158,18 +158,16 @@ const Retailers = () => {
   const handleChange = async (e) => {
     SetSelectedOption(e);
   };
-
+  const  postData = {
+    searchParam: searchRetailers,
+    sort: -1,
+    pageNumber: page,
+    recordsLimit: 10,
+  }
   useEffect(() => {
     if (authToken && searchRetailers !== "") {
       dispatch(
-        searchRetailersAsync({
-          postData: {
-            searchParam: searchRetailers,
-            sort: -1,
-            pageNumber: page,
-            recordsLimit: 10,
-          },
-          authToken,
+        searchretailer({postData, authToken,location
         })
       );
     }
@@ -212,7 +210,7 @@ const Retailers = () => {
                         }}
                       />
                       <Form.Text className="text-muted"></Form.Text>
-                      <AiOutlineSearch className="position-absolute search-icon" />
+                      <AiOutlineSearch className="position-absolute search-icon" style={{top: "40px", right: "12px"}} />
                     </Form.Group>
                   </Col>
                   {/* <Col lg="2" md="12">
@@ -310,7 +308,7 @@ const Retailers = () => {
                 <Button variant="secondary" onClick={updateRetailerModalBtn}>
                   Close
                 </Button>
-                <Button variant="primary" onClick={updateRetailersData}>
+                <Button variant="primary" type="button" onClick={updateRetailersData}>
                   Save Changes
                 </Button>
               </Modal.Footer>

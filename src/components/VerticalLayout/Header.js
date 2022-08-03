@@ -41,8 +41,9 @@ const Header = props => {
   const [search, setsearch] = useState(false);
   const [megaMenu, setmegaMenu] = useState(false);
   const [socialDrp, setsocialDrp] = useState(false);
-  const counter = useSelector(state => state.Login?.userDetails)
-  console.log(counter?.data?.userData?.profile_image,"user data")
+  const auth = JSON.parse(localStorage.getItem('authUser'));
+  const authToken = auth?.data?.token
+  console.log("@!$$",authToken)
   
   function toggleFullscreen() {
     if (
@@ -90,13 +91,14 @@ const Header = props => {
             <div className="navbar-brand-box d-lg-none d-md-block">
               <Link to="/" className="logo logo-dark">
                 <span className="logo-sm">
-                  <img src={counter?.data?.userData?.profile_image} alt="" height="22" />
+                  <h1>sddffd</h1>
+                  <img src={github} alt="" height="22" />
                 </span>
               </Link>
 
               <Link to="/" className="logo logo-light">
                 <span className="logo-sm">
-                  <img src={counter?.data?.userData?.profile_image} alt="" height="22" />
+                  <img src={auth?.data?.userData?.profile_image} alt="" height="22" />
                 </span>
               </Link>
             </div>

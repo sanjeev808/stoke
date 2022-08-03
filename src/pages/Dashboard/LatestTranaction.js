@@ -68,7 +68,7 @@ const LatestTranaction = props => {
         columns={columns}
       ></BootstrapTable>
 
-      <Link to='/user' className="btn-primary p-2 brown-btn ms-4">View All User</Link>
+      <Link to='/user' className="d-flex justify-content-center"><button className="btn btn-primary  btn-sm py-2 px-2">View All User</button></Link>
     </React.Fragment>
   )
 }

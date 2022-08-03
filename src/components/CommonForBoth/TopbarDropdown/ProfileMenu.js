@@ -17,6 +17,9 @@ import { withRouter, Link } from "react-router-dom"
 import user1 from "../../../assets/images/users/avatar-1.jpg"
 
 const ProfileMenu = props => {
+
+  const auth = JSON.parse(localStorage.getItem('authUser'));
+  const authToken = auth?.data?.token
   // Declare a new state variable, which we'll call "menu"
   const [menu, setMenu] = useState(false)
 
@@ -51,7 +54,7 @@ const ProfileMenu = props => {
         >
           <img
             className="rounded-circle header-profile-user"
-            src={user1}
+            src={auth?.data?.userData?.profile_image}
             alt="Header Avatar"
           />
           <span className="d-none d-xl-inline-block ms-2 me-1">{username}</span>

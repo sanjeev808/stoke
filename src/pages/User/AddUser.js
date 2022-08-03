@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
+import avtar from "../../assets/images/users/avtar.png"
 
 // import { selectAuth, addUsersAsync } from "../../auth/authSlice";
 import { addusers } from "store/actions"
@@ -305,13 +306,13 @@ const authToken = auth?.data?.token
                         <span className="profile-imguser d-flex flex-column align-items-center">
                           <div className="position-relative userimg-editicon">
                             <img
-                              src={imgData}
-                              className="img-fluid singleuserimage mt-3"
-                              alt=""
+                              src={imgData  || avtar}
+                              className="img-fluid singleuserimage mt-3 rounded-circle"
+                              alt="" width={170} height={170}
                             />
-                            <a>
-                              <FaRegEdit onClick={handleClick} />{" "}
-                            </a>
+                            {/* <a> */}
+                              <span className=""><FaRegEdit onClick={handleClick} />{" "}</span>
+                            {/* </a> */}
                             <input
                               id="profilePic"
                               type="file"
@@ -321,19 +322,19 @@ const authToken = auth?.data?.token
                             />
                           </div>
                         </span>
-                        {/* <Figure>
-                          <FaRegEdit />
-                        </Figure> */}
+                        {/* <Figure> */}
+                          {/* <FaRegEdit /> */}
+                        {/* </Figure> */}
                       </span>
                     </div>
                   </Col>
                 </Row>
-                <div className="savechanges-btn d-flex">
-                  <Button className="brown-btn me-3" onClick={handleSubmit}>
+                <div className="savechanges-btn d-flex justify-content-end mt-4">
+                  <Button className="brown-btn me-3 mt-4" onClick={handleSubmit}>
                     Save
                   </Button>
                   <Button
-                    className="brown-btn d-block gray-btn"
+                    className="brown-btn d-block gray-btn mt-4"
                     onClick={handleCancel}
                   >
                     Cancel

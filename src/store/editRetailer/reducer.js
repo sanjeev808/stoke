@@ -3,13 +3,11 @@ import {
     EDIT_RETAILER_SUCCESS
     } from "./actionTypes";
     
-
-
     const INIT_STATE = {
-      editretailer: [],
+      editretailer: {},
     };
     
-    const editRetailer = (state = INIT_STATE, action) => {
+    const editretailer = (state = INIT_STATE, action) => {
       switch (action.type) {
         case EDIT_RETAILER_SUCCESS:
           return {
@@ -27,5 +25,5 @@ import {
       }
     };
     
-    export default editRetailer;
+    export default editretailer;
     

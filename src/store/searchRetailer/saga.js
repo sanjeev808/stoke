@@ -11,14 +11,14 @@ import {
 
 //Include Both Helper File with needed methods
 import {
-  searchRetailer,
+  SearchRetailer,
 } from "helpers/fakebackend_helper";
 
 
 function* fetchOrders({payload:data}) {
  
   try {
-    const response = yield call(getUser,data);
+    const response = yield call(SearchRetailer,data);
     yield put(searchretailerSuccess(response));
   } catch (error) {
     console.log(error,"getError" )

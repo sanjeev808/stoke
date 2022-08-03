@@ -118,7 +118,7 @@ const handleOnUserSearch = (e)=>{
     );
     setdeleteAdModal(false);
     dispatch(
-      getAdvertisementListAsync({
+      getadvertisment({
         postData: {
           searchParam: searchAdvertisements || "",
           sort: -1,

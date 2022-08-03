@@ -61,7 +61,7 @@ export * from "./addRetailer/actions"
 export * from "./searchRetailer/actions"
 
 // edit retailer
-export  * from "./EditRetailer/actions"
+export * from "./editRetailer/actions"
 
 //  user Notification
 export * from "./Notification/actions"
